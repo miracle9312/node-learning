@@ -1,10 +1,9 @@
 # node-
-#test#
   
 vvv
-this is header 1
+#this is header 1
 =========
-this is header 2
+##this is header 2
 -------------
 #header1
 ##header2
@@ -35,6 +34,4 @@ function out() {
   }
 }
 ```
-
-	感谢张春雨编辑支持我将全书开源的做法。如果您认可这本	书，建议购买纸版。这样可以使出版社不因出版开源书籍而	亏钱，进而鼓励更多的作者开源自己的书籍。下面是第三版	的购买地址。
 
