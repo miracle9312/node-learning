@@ -8,10 +8,10 @@ vvv
 # header1 #
 ## header2 ##
 ### header3 ###
-| 1 | 2 | 3 |
-| --- | --- |
-| shao | xue | zheng |
-| ni | zui | shuai |
+ 1 | 2 | 3 
+ --- | --- | ---
+shao | xue | zheng 
+ni | zui | shuai 
 
 >this is a quote任何像样的文本编辑器都能轻松地建立 email 型的引用。例如在 BBEdit 中，你可以选取文字后然后从选单中选择增加引用阶层。
 >
