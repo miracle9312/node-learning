@@ -3,9 +3,15 @@
 [baidu](www.baidu.com)
 vvv
 
+<img src="https://avatars2.githubusercontent.com/u/3265208?v=3&s=100" alt="GitHub" title="GitHub,Social Coding" width="50" height="50" />
+
 # header1 #
 ## header2 ##
 ### header3 ###
+| 1 | 2 | 3 |
+| --- | --- |
+| shao | xue | zheng |
+| ni | zui | shuai |
 
 >this is a quote任何像样的文本编辑器都能轻松地建立 email 型的引用。例如在 BBEdit 中，你可以选取文字后然后从选单中选择增加引用阶层。
 >
@@ -15,7 +21,7 @@ vvv
 * unorder list
 * unorder list
 
-ffff
+~~ffff~~
 
 1. order list1 
 2. order list2
