@@ -1,5 +1,15 @@
-# node
+# node 
 ***
+## node特点
+1. 异步：有如下场景，服务端正在处理如下几个任务t1,t2,t3，同步的处理方式是顺序执行，耗费时间是三者之和；异步可以同时执行，耗费时间是max(t1,t2,t3)。
+2. 单线程：node在执行js时，该js片段只能在一个线程上执行，不能另起线程同时执行。
+3. 跨平台：由于libuv对windows和linux的封装，可以直接在windows和linux上使用node
+
+## 模块机制
+### require(xxx)
+* 搜索原则：逐级向上
+* xxx="字母开头的字符串"：引用核心模块
+
 [baidu](www.baidu.com)
 vvv
 
