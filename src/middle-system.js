@@ -19,8 +19,6 @@ middle.use = function(mid) {
 
 //触发中间件
 middle.handle = function(req, res){
-  /*req.init = 'init';
-  res.init = 'init';*/
   next();
 };
 

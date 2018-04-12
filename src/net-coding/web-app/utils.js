@@ -1,7 +1,3 @@
-var sessions = {};
-var key = 'session_id';
-var EXPIRES = 20*60*1000;
-
 //分辨请求方法
 var request =function (method) {
   switch(method){
@@ -38,17 +34,6 @@ var parseCookie = function(cookie) {
   return cookies;
 };
 
-//生成session
-var generaSession = function() {
-  var session = {};
-  session.id = (new Date()).getTime()+Math.random();
-  session.cookie = {
-    expire: (new Date()).getTime() + EXPIRES
-  };
-  sessions[session.id] = session;
-  return session;
-};
-
 //序列化报文cookie
 var serializeCookie = function (name, val, opt) {
   var pairs = [name + '=' + val];
@@ -67,6 +52,5 @@ var serializeCookie = function (name, val, opt) {
 module.exports = {
   request,
   parseCookie,
-  generaSession,
-  serializeCookie
+  serializeCookie,
 };
