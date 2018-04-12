@@ -19,8 +19,8 @@ middle.use = function(mid) {
 
 //触发中间件
 middle.handle = function(req, res){
-  req.init = 'init';
-  res.init = 'init';
+  /*req.init = 'init';
+  res.init = 'init';*/
   next();
 };
 
@@ -28,14 +28,17 @@ middle.handle = function(req, res){
 function next() {
   //终止条件
   if(index == middle.stack.length){
-    console.log(middle_req,middle_res);
     return;
   }
   var mid = middle.stack[index++];
   mid.handle(middle_req, middle_res, next);
 }
 
-var mid1 = {
+module.exports = {
+  middle
+};
+
+/*var mid1 = {
   handle: function(req, res, next){
     req.mid1 = 'mid1';
     res.mid1 = 'mid1';
@@ -51,11 +54,13 @@ var mid2 = {
 
     next();
   }
-};
+};*/
 
+/*
 middle.use(mid1)
   .use(mid2);
 
 var req = {},
   res = {};
 middle(req, res);
+*/
