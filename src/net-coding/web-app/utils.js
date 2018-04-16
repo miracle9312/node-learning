@@ -1,3 +1,40 @@
+var fs = require('fs');
+var crypto = require('crypto');
+var path = require('path');
+
+//获取私钥
+var getSecret = function (fn) {
+  return new Promise(function(resolve, reject) {
+    fs.readFile(path.resolve(__dirname,'../https/server.key'), function (err, data) {
+      if(err) reject(err);
+      var str = new Buffer(data).toString('utf-8');
+      resolve(str);
+    })
+  })
+    .then(fn)
+    .catch(function(err) {
+      throw(err);
+    })
+
+};
+
+//私钥加密
+var sign = function(val) {
+  return getSecret(function(secret) {
+    return val + '.' + crypto
+      .createHmac('sha256', secret)
+      .update(val)
+      .digest('base64')
+      .replace(/\=+$/, '');
+  });
+};
+
+//私钥解密
+var unsign = function(val) {
+  var str = val.slice(0, val.indexOf('.'));
+  return sign(str)
+};
+
 //分辨请求方法
 var request =function (method) {
   switch(method){
@@ -49,8 +86,12 @@ var serializeCookie = function (name, val, opt) {
   return pairs.join(';');
 };
 
+//
+
 module.exports = {
   request,
   parseCookie,
   serializeCookie,
+  sign,
+  unsign
 };

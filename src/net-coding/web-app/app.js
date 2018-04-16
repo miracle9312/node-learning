@@ -2,7 +2,7 @@ var url = require('url');
 var querystring = require('querystring');
 var util = require('./utils');
 var light = require('./light');
-var {isFreshByCookie, isFreshByUrl} = require('./business');
+var {isFreshByCookie} = require('./business');
 var app = light();
 
 app.use(function(req, res, next) {

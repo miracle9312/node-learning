@@ -6,7 +6,7 @@ var util = require('./utils');
 //生成session
 var generaSession = function() {
   var session = {};
-  session.id = (new Date()).getTime()+Math.random();
+  session.id = (new Date()).getTime();
   session.cookie = {
     expire: (new Date()).getTime() + EXPIRES
   };
@@ -18,11 +18,14 @@ var generaSession = function() {
 var rewriteHead = function(req, res) {
   var writeHead = res.writeHead;
   res.writeHead = function() {
-    var cookies = res.getHeader('Set-Cookie');
-    var session = util.serializeCookie(key, req.session.id);
-    cookies = Array.isArray(cookies) ? cookies.concat(session) : [cookies, session];
-    res.setHeader('Set-Cookie', cookies);
-    return writeHead.apply(this, arguments);
+    var args = arguments;
+    return util.sign(req.session.id+'').then(function(val){
+      var cookies = res.getHeader('Set-Cookie');
+      var session = util.serializeCookie(key, val);
+      cookies = Array.isArray(cookies) ? cookies.concat(session) : [cookies, session];
+      res.setHeader('Set-Cookie', cookies);
+      writeHead.apply(res, args);
+    });
   }
 };
 
