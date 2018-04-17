@@ -1,13 +1,20 @@
-var index = 0,
-  middle_req = {},
-  middle_res = {},
-  http = require('http');
+var http = require('http');
 
 module.exports = function() {
   function middle (req, res) {
-    middle_req = req;
-    middle_res = res;
-    middle.handle(middle_req, middle_res);
+    var index = 0;
+
+    //递归执行中间件栈
+    function next() {
+      //终止条件
+      if(index == middle.stack.length){
+        return;
+      }
+      var mid = middle.stack[index++];
+      mid(req, res, next);
+    }
+
+    next();
   }
 
   //中间件栈
@@ -19,26 +26,11 @@ module.exports = function() {
     return this;
   };
 
-  //触发中间件
-  middle.handle = function(req, res){
-    next();
-  };
-
   //监听
   middle.listen = function() {
     var server = http.createServer(this);
     return server.listen.apply(server, arguments);
   };
-
-  //递归执行中间件栈
-  function next() {
-    //终止条件
-    if(index == middle.stack.length){
-      return;
-    }
-    var mid = middle.stack[index++];
-    mid(middle_req, middle_res, next);
-  }
 
   return middle;
 };

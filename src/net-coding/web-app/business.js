@@ -50,8 +50,6 @@ var isFreshByCookie = function (req, res, next) {
       }
     });
   }
-
-  next();
 };
 
 function getUrl(key, value, _url) {
