@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/miracle9312/node-#readme",
   "dependencies": {
+    "formidable": "^1.2.1",
     "highlight.js": "^9.12.0",
     "miracle-math-test": "^1.0.0",
     "openssl": "^1.1.0",
-    "ws": "^5.1.1"
+    "ws": "^5.1.1",
+    "xml2js": "^0.4.19"
   }
 }

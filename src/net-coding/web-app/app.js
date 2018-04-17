@@ -2,6 +2,7 @@ var url = require('url');
 var querystring = require('querystring');
 var util = require('./utils');
 var light = require('./light');
+var upload = require('./upload');
 var {isFreshByCookie} = require('./business');
 var app = light();
 
@@ -23,28 +24,7 @@ app.use(function(req, res, next) {
   });
 
 app.use(isFreshByCookie);
-
+app.use(upload);
 app.listen(8000, '172.28.211.122');
-
-/*http.createServer(function(req, res) {
-
-  //session
-  var session_id = cookie[sessionStorage.key];
-
-  if(!session_id){
-    req.session = sessionStorage.generaSession();
-  }else{
-    var session = sessionStorage.sessions[session_id]
-    if((new Date().getTime())>session.cookie.expire){
-      delete sessionStorage.sessions[session_id];
-      req.session = sessionStorage.generaSession();
-    }else{
-      session.cookie.expire = new Date().getTime() + sessionStorage.EXPIRES;
-      req.session = session;
-    }
-  }
-  handleLogin(req, res);
-}
-).listen(8000, '172.28.211.122');*/
 
 console.log('server runing at 172.28.211:8000');
