@@ -72,11 +72,26 @@ var curryParseJSON = toRawBody(parseJSON);
 var curryParseXML = toRawBody(parseXML);
 var curryParseForm = toRawBody(parseform);
 
+//控制上传文件大小，防止内存泄漏
+var safeUpload = function(req, res) {
+  var bytes = 1024;
+  var len = req.headers['content-length']
+    ? parseInt(req.headers['content-lenght'], 10)
+    : 0;
+  if(len && len>bytes){
+    res.writeHead(413);
+    res.end();
+    return false;
+  }
+
+  return true;
+};
+
 /*创建upload中间件
 * [Function]handle:处理上传数据*/
 var assembleUpload = function(handle) {
   return function(req, res, next) {
-    if(hasbody(req)){
+    if(safeUpload(req, res) && hasbody(req)){
       var type = mime(req);
       if(type === 'application/json'){
         curryParseJSON(req,res, handle);

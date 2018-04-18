@@ -2,6 +2,12 @@ var fs = require('fs');
 var crypto = require('crypto');
 var path = require('path');
 
+var handle404 = function(req, res){
+  res.writeHead(404);
+  res.end();
+  return;
+};
+
 //获取私钥
 var getSecret = function (fn) {
   return new Promise(function(resolve, reject) {
@@ -93,5 +99,6 @@ module.exports = {
   parseCookie,
   serializeCookie,
   sign,
-  unsign
+  unsign,
+  handle404
 };
