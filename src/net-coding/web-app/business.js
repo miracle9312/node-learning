@@ -2,6 +2,7 @@ var sessionStorage = require('./session');
 var util = require('./utils');
 var querystring = require('querystring');
 var url = require('url');
+var {assembleUpload}= require('./upload');
 
 function respond(req,res) {
   sessionStorage.rewriteHead(req, res);
@@ -86,7 +87,14 @@ function isFreshByUrl (req, res, next) {
   next();
 }
 
+var handleUpload = function(req, res) {
+  console.log(req.body);
+};
+
+var upload = assembleUpload(handleUpload);
+
 module.exports = {
   isFreshByUrl,
-  isFreshByCookie
+  isFreshByCookie,
+  upload
 };

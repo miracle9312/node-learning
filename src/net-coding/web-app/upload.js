@@ -15,7 +15,7 @@ var mime = function (req) {
 
 //上传内容添加至rawBody
 var toRawBody = function(fn) {
-  return function(req, res){
+  return function(req, res, handle){
     var buffers = [];
     req.on('data', function(chunk) {
       buffers.push(chunk);
@@ -23,19 +23,21 @@ var toRawBody = function(fn) {
 
     req.on('end', function() {
       req.rawBody = Buffer.concat(buffers).toString();
-      fn(req, res);
+      fn(req, res, handle);
     })
   }
 };
 
-var parseform = function(req, res) {
+var parseform = function(req, res, handle) {
   req.body = querystring.parse(req.rawBody);
-}
+  handle(req, res);
+};
 
 //接受数据为JSON格式
-var parseJSON = function(req, res) {
+var parseJSON = function(req, res, handle) {
   try{
     req.body = JSON.parse(req.rawBody);
+    handle(req, res);
   }catch(e){
     res.writeHead(400);
     res.end('INVALID JSON');
@@ -44,23 +46,25 @@ var parseJSON = function(req, res) {
 };
 
 //接受数据为xml格式
-var parseXML = function(req, res) {
+var parseXML = function(req, res, handle) {
   xml2js.parseString(req.rawBody, function (err, xml) {
     if(err){
       res.writeHead(400);
       res.end('INVALID XML');
       return
     }
-    res.body = xml;
+    req.body = xml;
+    handle(req, res);
   })
 };
 
 //接受数据为表单附件
-var parseMultiPart = function(req, res) {
+var parseMultiPart = function(req, res, handle) {
   var form = new formidable.IncomingForm();
   form.parse(req, function(err, fields, files){
     req.body = fields;
     req.files = files;
+    handle(req, res);
   })
 };
 
@@ -68,18 +72,29 @@ var curryParseJSON = toRawBody(parseJSON);
 var curryParseXML = toRawBody(parseXML);
 var curryParseForm = toRawBody(parseform);
 
-module.exports = function(req, res, next) {
-  if(hasbody(req)){
-    var type = mime(req);
-    if(type === 'application/json'){
-      curryParseJSON(req,res);
-    }else if(type === 'application/xml'){
-      curryParseXML(req, res);
-    }else if(type === 'application/x-www-form-urlencoded'){
-      curryParseForm(req, res)
-    }else if(type === 'application/form-data') {
-      parseMultiPart(req, res);
+/*创建upload中间件
+* [Function]handle:处理上传数据*/
+var assembleUpload = function(handle) {
+  return function(req, res, next) {
+    if(hasbody(req)){
+      var type = mime(req);
+      if(type === 'application/json'){
+        curryParseJSON(req,res, handle);
+      }else if(type === 'application/xml'){
+        curryParseXML(req, res, handle);
+      }else if(type === 'application/x-www-form-urlencoded'){
+        curryParseForm(req, res, handle)
+      }else if(type === 'application/form-data') {
+        parseMultiPart(req, res, handle);
+      }
+    }else{
+      handle(req, res);
     }
+    next();
   }
+};
+
+module.exports = {
+  assembleUpload
 };
 
