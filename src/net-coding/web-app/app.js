@@ -1,11 +1,13 @@
-var url = require('url');
-var querystring = require('querystring');
-var util = require('./utils');
+/*var url = require('url');
+/!*var querystring = require('querystring');*!/
+var util = require('./utils');*/
 var light = require('./light');
-var {isFreshByCookie, upload} = require('./business');
+var {cookie} = require('./middlewares')
+/*var {isFreshByCookie, upload} = require('./business');*/
 var app = light();
 
-app.use(function(req, res, next) {
+app.use(cookie);
+/*app.use(function(req, res, next) {
     //judge request method
     util.request(req.method);
     //get pathname
@@ -20,10 +22,10 @@ app.use(function(req, res, next) {
     console.log(cookie,'=======cookie========');
 
     next();
-  });
+  });*/
 
-app.use(isFreshByCookie);
-app.use(upload);
+/*app.use(isFreshByCookie);
+app.use(upload);*/
 app.listen(8000, '172.28.211.122');
 
 console.log('server runing at 172.28.211:8000');
