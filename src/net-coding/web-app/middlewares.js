@@ -4,6 +4,7 @@ var cookie = function(req, res, next) {
   var cookie = req.headers.cookies;
   var cookies = {};
   if(!cookie){
+    next();
     return cookies;
   }
 

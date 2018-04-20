@@ -31,6 +31,25 @@ module.exports = function() {
     return this;
   };
 
+  //将中间件插入请求栈
+  ['get', 'delete', 'put', 'post'].map(function(method) {
+    middle[method] = function(path){
+      if(typeof path == 'string'){
+        var handle = {
+          path: pathRegexp(path),
+          stack: Array.prototype.slice.call(arguments, 1)
+        };
+      }else{
+        var handle = {
+          path: pathRegexp('/'),
+          stack: Array.prototype.slice.call(arguments, 0)
+        }
+      }
+      routes[method].push(handle);
+      return this;
+    }
+  });
+
   //执行中间件
   var handle = function(req, res, stacks){
     //递归执行中间件栈
@@ -47,11 +66,10 @@ module.exports = function() {
   //路由匹配，获取需执行的中间件
   var match = function(path, routes) {
     var stacks = [];
-    for(var i = 0,l = routes.left; i < l; i++){
+    for(var i = 0,l = routes.length; i < l; i++){
       var route = routes[i];
-      var reg = route[0].regexp;
-      var keys = route[0].keys;
-      var stack = route[1];
+      var reg = route.path.regexp;
+      var keys = route.path.keys;
       var matched = reg.exec(path);
       if(matched){
         //获取参数
@@ -62,7 +80,7 @@ module.exports = function() {
             params[keys[j]] = value;
           }
         }
-        stacks = stacks.concat(stack);
+        stacks = stacks.concat(route.stack);
       }
     }
 
