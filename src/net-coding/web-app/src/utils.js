@@ -11,7 +11,7 @@ var handle404 = function(req, res){
 //获取私钥
 var getSecret = function (fn) {
   return new Promise(function(resolve, reject) {
-    fs.readFile(path.resolve(__dirname,'../https/server.key'), function (err, data) {
+    fs.readFile(path.resolve(__dirname,'../../https/server.key'), function (err, data) {
       if(err) reject(err);
       var str = new Buffer(data).toString('utf-8');
       resolve(str);

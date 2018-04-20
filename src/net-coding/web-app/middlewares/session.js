@@ -1,7 +1,7 @@
 var sessions = {};
 var key = 'session_id';
 var EXPIRES = 20*60*1000;
-var util = require('./utils');
+var util = require('../src/utils');
 
 //生成session
 var generaSession = function() {

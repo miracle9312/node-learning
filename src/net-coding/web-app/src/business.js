@@ -1,8 +1,8 @@
-var sessionStorage = require('./session');
+var sessionStorage = require('../middlewares/session');
 var util = require('./utils');
 var querystring = require('querystring');
 var url = require('url');
-var {assembleUpload}= require('./upload');
+var {assembleUpload}= require('../middlewares/upload');
 
 function respond(req,res) {
   sessionStorage.rewriteHead(req, res);

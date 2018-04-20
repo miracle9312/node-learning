@@ -1,6 +1,7 @@
 var mime = require('mime');
 var path = require('path');
 var fs = require('fs');
+var render = require('./render');
 
 var respond = function (req, res, next) {
   res.sendFile = function(filepath) {
@@ -25,6 +26,13 @@ var respond = function (req, res, next) {
     res.setHeader('Location', url);
     res.writeHead(302);
     res.end('Url redirect to '+ url);
+  };
+
+  res.render = function(view, data) {
+    res.setHeader('Content-Type', 'text/html');
+    res.writeHead(200);
+    var html = render(view, data);
+    res.end(html);
   };
 
   next();

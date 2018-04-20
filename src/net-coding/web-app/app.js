@@ -1,7 +1,7 @@
-var light = require('./light');
-var {cookie,querystring} = require('./basic');
-var {isFreshByCookie, upload} = require('./business');
-var respond = require('./respond');
+var light = require('./middlewares/light');
+var {cookie,querystring} = require('./middlewares/basic');
+var {isFreshByCookie, upload} = require('./src/business');
+var respond = require('./middlewares/respond');
 var app = light();
 var path = require('path');
 
@@ -20,6 +20,12 @@ app.use('/redirect', respond, function(req, res) {
 
 app.use('/json', respond, function(req, res) {
   res.json({'name':'miracle'});
+});
+
+app.use('render', respond, function(req, res) {
+  var view = 'hello <%=username%>';
+  var data = {'username': 'miracle'};
+  res.render(view, data);
 });
 
 app.listen(8000, '172.28.211.122');

@@ -1,5 +1,5 @@
 var url = require('url');
-var util = require('./utils')
+var util = require('../src/utils')
 
 //路由拦截
 var pathRegexp = function(path) {
