@@ -19,7 +19,7 @@ var cookie = function(req, res, next) {
 };
 
 var querystring = function(req, res, next) {
-  req.query = url.parse(url).query;
+  req.query = url.parse(req.url).query;
   next();
 };
 

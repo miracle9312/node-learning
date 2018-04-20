@@ -4,6 +4,31 @@ var routes = {all: []};
 
 module.exports = function() {
   function middle (req, res) {
+    //路由匹配，获取需执行的中间件
+    var match = function(path, routes) {
+      var stacks = [];
+      for(var i = 0,l = routes.length; i < l; i++){
+        var route = routes[i];
+        var reg = route.path.regexp;
+        var keys = route.path.keys;
+        var matched = reg.exec(path);
+        if(matched){
+          //获取参数
+          req.params = req.params || {};
+          for(var j = 0, kl = keys.length; j < kl; j++){
+            var value = matched[j+1];
+            if(value){
+              req.params[keys[j]] = value;
+            }
+          }
+
+          stacks = stacks.concat(route.stack);
+        }
+      }
+
+      return stacks;
+    };
+
     //分发过程
     var pathname = url.parse(req.url).pathname;
     var method = req.method.toLowerCase();
@@ -11,6 +36,7 @@ module.exports = function() {
     if(routes.hasOwnProperty(method)){
       stacks.concat(match(pathname, routes[method]));
     }
+    //触发中间件
     handle(req, res, stacks);
   }
 
@@ -61,30 +87,6 @@ module.exports = function() {
       return;
     }
     next();
-  };
-
-  //路由匹配，获取需执行的中间件
-  var match = function(path, routes) {
-    var stacks = [];
-    for(var i = 0,l = routes.length; i < l; i++){
-      var route = routes[i];
-      var reg = route.path.regexp;
-      var keys = route.path.keys;
-      var matched = reg.exec(path);
-      if(matched){
-        //获取参数
-        var params = {};
-        for(var j = 0, kl = keys.length; j < kl; j++){
-          var value = matched[j+1];
-          if(value){
-            params[keys[j]] = value;
-          }
-        }
-        stacks = stacks.concat(route.stack);
-      }
-    }
-
-    return stacks;
   };
 
   //路由拦截
