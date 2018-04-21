@@ -1,7 +1,9 @@
 var mime = require('mime');
 var path = require('path');
 var fs = require('fs');
-var render = require('./render');
+var cache = {};
+var VALID_PATH = path.join(__dirname, "../src/views");
+var {compile, render} = require('./render');
 
 var respond = function (req, res, next) {
   res.sendFile = function(filepath) {
@@ -28,10 +30,23 @@ var respond = function (req, res, next) {
     res.end('Url redirect to '+ url);
   };
 
-  res.render = function(view, data) {
+  res.render = function(viewname, data) {
+    if(!cache[viewname]) {
+      var text;
+      try{
+        text = fs.readFileSync(VALID_PATH+viewname, 'utf-8');
+      }catch(e) {
+        res.setHeader("Content-Type", 'text/html');
+        res.writeHead(500);
+        res.end('template error');
+        return;
+      }
+      cache[viewname] = compile(text);
+    }
+    var compiled = cache[viewname];
     res.setHeader('Content-Type', 'text/html');
     res.writeHead(200);
-    var html = render(view, data);
+    var html = render(compiled, data);
     res.end(html);
   };
 

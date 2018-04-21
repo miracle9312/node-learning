@@ -22,10 +22,10 @@ app.use('/json', respond, function(req, res) {
   res.json({'name':'miracle'});
 });
 
-app.use('render', respond, function(req, res) {
-  var view = 'hello <%=username%>';
-  var data = {'username': 'miracle'};
-  res.render(view, data);
+app.use('/render', respond, function(req, res) {
+  var viewname = "/test.html";
+  var data = {user:"shao",username: "miracle"};
+  res.render(viewname, data);
 });
 
 app.listen(8000, '172.28.211.122');
