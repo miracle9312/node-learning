@@ -24,7 +24,7 @@ app.use('/json', respond, function(req, res) {
 
 app.use('/render', respond, function(req, res) {
   var viewname = "/test.html";
-  var data = {user:"shao",username: "miracle"};
+  var data = {layout:'/layout.html',user:"shao",username: "miracle"};
   res.render(viewname, data);
 });
 

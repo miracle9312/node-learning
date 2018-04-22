@@ -1,9 +1,7 @@
 var mime = require('mime');
 var path = require('path');
 var fs = require('fs');
-var cache = {};
-var VALID_PATH = path.join(__dirname, "../src/views");
-var {compile, render} = require('./render');
+var templater = require('./render');
 
 var respond = function (req, res, next) {
   res.sendFile = function(filepath) {
@@ -31,7 +29,9 @@ var respond = function (req, res, next) {
   };
 
   res.render = function(viewname, data) {
-    if(!cache[viewname]) {
+    var template = templater(req, res);
+    template.render(viewname, data);
+    /*if(!cache[viewname]) {
       var text;
       try{
         text = fs.readFileSync(VALID_PATH+viewname, 'utf-8');
@@ -47,7 +47,7 @@ var respond = function (req, res, next) {
     res.setHeader('Content-Type', 'text/html');
     res.writeHead(200);
     var html = render(compiled, data);
-    res.end(html);
+    res.end(html);*/
   };
 
   next();
