@@ -1,9 +1,9 @@
+var path = require('path');
 var light = require('./middlewares/light');
 var {cookie,querystring} = require('./middlewares/basic');
 var {isFreshByCookie, upload} = require('./src/business');
 var respond = require('./middlewares/respond');
 var app = light();
-var path = require('path');
 
 app.use(cookie);
 app.use(querystring);
@@ -26,6 +26,20 @@ app.use('/render', respond, function(req, res) {
   var viewname = "/test.html";
   var data = {layout:'/layout.html',user:"shao",username: "miracle"};
   res.render(viewname, data);
+});
+
+app.use('/bigpipe', respond, function(req, res) {
+  var layout = '/bigpipe.html';
+  res.render(layout, {});
+  setTimeout(function() {
+    var data = {
+      name: "miracle",
+      appearance: "handsome"
+    };
+
+    res.write("<script>bigpipe.set('data',"+data+")</script>");
+    res.end();
+  }, 2000)
 });
 
 app.listen(8000, '172.28.211.122');

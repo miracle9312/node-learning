@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>hello miracle</h2>
+<div id="view"></div>
+<script src="./js/bigpipe.js" type="application/javascript"></script>
+<script src="js/lib/jquery.js" type="application/javascript"></script>
+<script src = ".js/tools/juicer.js" type="application/javascript"></script>
+<script id="view_tpl" type="text/template">
+    <div>
+        <h2>${name}</h2>
+        <h2>${appearance}</h2>
+    </div>
+</script>
+<script>
+   var rootPath = "http://172.28.211.122/"
+</script>
+<script>
+    var bigpipe = new BigPipe();
+    bigpipe.ready("data", function(data) {
+      $("view").html(juicer($("view_tpl"), data))
+    });
+</script>
+</body>
+</html>

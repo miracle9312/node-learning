@@ -60,7 +60,7 @@ module.exports = function(req, res) {
         }
       }
     }
-    var layoutContent = cache[layout] || "<%-body%>";
+    var layoutContent = cache[layout] || "<%- body %>";
 
     //replace layout by view
     var replaced;
@@ -82,6 +82,7 @@ module.exports = function(req, res) {
     res.writeHead(200);
     var html = cache[key](data, escape);
     res.end(html);
+    /*res.end();*/
   };
 
   return{
