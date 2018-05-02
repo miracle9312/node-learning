@@ -35,13 +35,13 @@ nvm use 8.9.1
 * 下载niginx并安装
 >wget -c https://nginx.org/download/nginx-1.10.1.tar.gz
 
-解压：tar -zxvf nginx-1.10.1.tar.gz
+>解压：tar -zxvf nginx-1.10.1.tar.gz
 
-进入安装目录：cd nginx-1.10.1
+>进入安装目录：cd nginx-1.10.1
 
-默认配置：./configure
+> 默认配置：./configure
 
-编译安装：make
+>编译安装：make
 
               make install
 * 测试是否安装成功
