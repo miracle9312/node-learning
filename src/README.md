@@ -1,4 +1,4 @@
-##基于mobaxterm的node发布流程
+## 基于mobaxterm的node发布流程
 1. 远程连接
 * 打开mobax
 * 点击session
@@ -34,21 +34,35 @@ nvm use 8.9.1
 >yum install -y openssl openssl-devel
 * 下载niginx并安装
 >wget -c https://nginx.org/download/nginx-1.10.1.tar.gz
->解压：tar -zxvf nginx-1.10.1.tar.gz
->进入安装目录：cd nginx-1.10.1
->默认配置：./configure
->编译安装：make
->		make install
+
+解压：tar -zxvf nginx-1.10.1.tar.gz
+
+进入安装目录：cd nginx-1.10.1
+
+默认配置：./configure
+
+编译安装：make
+
+              make install
 * 测试是否安装成功
->cd /usr/local/nginx/sbin/
->./nginx -t
->//插入图片
->启动：./nginx
+
+cd /usr/local/nginx/sbin/
+
+./nginx -t
+
+//插入图片
+
+启动：./nginx
 5. 常见错误
 * 端口占用
->解决:netstat -ntpl查看端口占用情况
->//插入图片
->执行 kill 3419
+
+解决:netstat -ntpl查看端口占用情况
+
+//插入图片
+
+执行 kill 3419
 * 无权限
->解决：sudo+命令
->//插入图片
+
+解决：sudo+命令
+
+//插入图片
