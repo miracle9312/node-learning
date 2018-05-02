@@ -1,5 +1,5 @@
 ## 基于mobaxterm的node发布流程
-1. 远程连接
+### 1. 远程连接
 * 打开mobax
 * 点击session
 * 输入ip,点击确定
@@ -7,8 +7,8 @@
 
 // 插入图片
 
-2. 添加用户并授权
-3. nodejs环境搭建
+### 2. 添加用户并授权
+### 3. nodejs环境搭建
 * 安装常用软件
 
 sudo wget vim openssl build-essential libssl-dev wget curl git
@@ -23,7 +23,7 @@ nvm install v8.9.1
 
 nvm use 8.9.1
 
-4. nginx服务器代理
+### 4. nginx服务器代理
 *  安装gcc
 >yum install gcc-c++
 * 安装 pcre
@@ -53,7 +53,7 @@ nvm use 8.9.1
 >//插入图片
 
 >启动：./nginx
-5. 常见错误
+### 5. 常见错误
 * 端口占用
 
 >解决:netstat -ntpl查看端口占用情况
