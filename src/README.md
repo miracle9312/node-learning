@@ -43,26 +43,26 @@ nvm use 8.9.1
 
 >编译安装：make
 
-              make install
+>make install
 * 测试是否安装成功
 
-cd /usr/local/nginx/sbin/
+>cd /usr/local/nginx/sbin/
 
-./nginx -t
+>./nginx -t
 
-//插入图片
+>//插入图片
 
-启动：./nginx
+>启动：./nginx
 5. 常见错误
 * 端口占用
 
-解决:netstat -ntpl查看端口占用情况
+>解决:netstat -ntpl查看端口占用情况
 
 //插入图片
 
-执行 kill 3419
+>执行 kill 3419
 * 无权限
 
-解决：sudo+命令
+>解决：sudo+命令
 
 //插入图片
