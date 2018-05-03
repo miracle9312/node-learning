@@ -42,6 +42,6 @@ app.use('/bigpipe', respond, function(req, res) {
   }, 2000)
 });
 
-app.listen(Math.round((1 + Math.random()) * 1000), '172.28.211.122');
+app.listen(8000, '172.28.211.122');
 
 console.log('server runing at 172.28.211:8000');
