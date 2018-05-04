@@ -1,6 +1,12 @@
-## 基于mobaxterm的node发布流程
+## 基于xshell的node发布流程
+### 环境
+* 阿里云轻量应用服务器（centOS）
+* node v8.9.1
+* xshell6.0
+
 ### 1. 远程连接
-* 打开mobax
+* 打开xshell 新建会话 输入ip
+
 * 点击session
 * 输入ip,点击确定
 * 输入root和密码
