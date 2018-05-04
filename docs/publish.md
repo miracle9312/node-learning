@@ -7,21 +7,22 @@
 ### 1. 远程连接
 * 打开xshell 新建会话 输入ip
 
-<img src="./imgs/session.png"/>
+<img src="./imgs/publish/session.png"/>
 
 * 输入root和用户密码
 * 连接成功
-<img src="./imgs/success.png"/>
+<img src="./imgs/publish/success.png"/>
 
 ### 2. 添加用户并授权
 * 创建用户：useradd -d /home/bill -s /bin/bash -bill
 * 设置密码：passwd miracle
 * 为用户授权：visudo->输入字母i进入编辑->指定位置添加代码bill ALL=(ALL)ALL
 ->esc退出—>输入':wq'保存并退出
-<img src="./imgs/perrevised.png"/>
+<img src="./imgs/publish/perrevised.png"/>
+
 * 新建会话登录用户，验证是否成功
 
-<img src="./imgs/login.png"/>
+<img src="./imgs/publish/login.png"/>
 
 ### 3. nodejs环境搭建
 * 安装常用软件:sudo yum install vim openssl build-essential libssl-dev wget curl git
@@ -41,7 +42,7 @@ nvm alias default 8.9.1->npm install pm2
 * 编译安装：make->make install
 * 测试是否安装成功
 * cd /usr/local/nginx/sbin/ -> ./nginx -t
-<img src="./imgs/nginx.png"/>
+<img src="./imgs/publish/nginx.png"/>
 
 ### 5. 创建和部署hello world
 * 返回根目录：cd~
