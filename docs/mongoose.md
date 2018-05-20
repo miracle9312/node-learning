@@ -79,3 +79,22 @@
     * String: enum, match, maxlength, minlength
 3. 如何设置unique Option
 
+## Discriminators(表继承)
+1. 用途：人->[黑人，白人，黄种人]->[...]在建立这种
+具有分类性质的表结构时，子表中往往都会有父表的相同属性，为了不重复声明
+已声明过的字段，可以只建立一个顶级的通用表，将其他的表都作为其扩展形式。
+2. 方式：
+    ```
+    var extensionModel = natualModel.discriminator('name',{
+       prop1:value1
+       ...
+    })
+    ```
+3. 特性
+    * 所有子表的数据都存储在通用表中
+    * extensionModel.__t可以查询出数据属于那张子表
+    * 可以对子表进行find,count,aggregate操作
+    * 对子表的操作将触发父表的所有中间件
+    * discriminator's field is always precedence except _id
+    * Model.create()，可以自动将数据存储在相应的表中
+    * 可在subdocument中直接定义discriminator
