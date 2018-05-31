@@ -18,10 +18,10 @@
 ## models 数据增删改查
 操作名 | 方式
 --- | ---
-增 | new schema({key, value}), schema.create({})
-删 | schema.remove({key,value})
-改1 | schema.find()->data.key = value/data.set({key,value})->scema.save()
-改2 | schema.update({'query', {$set:{key, vakue}}})
+增 | new model({key, value}), model.create({})
+删 | model.remove({querycondition})
+改1 | model.find()->data.key = value/data.set({key,value})->scema.save()
+改2 | model.update({'query', {$set:{key, vakue}}})
 
 ## subdocuments
 ``` var childSchema = new Schema({ name: 'string' });
@@ -98,3 +98,10 @@
     * discriminator's field is always precedence except _id
     * Model.create()，可以自动将数据存储在相应的表中
     * 可在subdocument中直接定义discriminator
+
+## populate(联表查询)
+ 操作名 | 方式
+     --- | ---
+     populate | 表现一对多关系，通过［多］方的_id关联
+     dynamic populate | 表现一对多个多类，通过将［多］方的model用refPath表达
+     virtual populate | 将populate的关联关系用除_id之外的字段建立
