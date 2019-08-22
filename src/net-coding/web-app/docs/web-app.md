@@ -75,61 +75,62 @@ var parseCookie = function (cookie) {
 - 原理解析：如何用session保存用户登录状态
 <img style="margin: auto;display: block;" src="./assets/session.png" width="500px" height="250px"/>
 session的在node的实现
-    ```js
-    // session最终的数据格式
-    var sessions = {  
-      "id1": {
-        "expires": "xxxx",
-        "data": {}
-      },
-      "id2": {
-        "expires": "xxxx",
-         "data": {}
-      }
-    }  
-    
-    // 生成sessionId
-    var key = 'session_id';
-    var EXPIRES = 20 * 60 * 1000;
-    var generate = function() {  
-      var session = {};
-      var id = (new Date()).getTime() + Math.random();
-      session = {
-        expires: (new Date()).getTime() + EXPIRES;
-      };
-      sessions[id] = session;  
-      return session;
+
+```js
+// session最终的数据格式
+var sessions = {  
+  "id1": {
+    "expires": "xxxx",
+    "data": {}
+  },
+  "id2": {
+    "expires": "xxxx",
+     "data": {}
+  }
+}  
+
+// 生成sessionId
+var key = 'session_id';
+var EXPIRES = 20 * 60 * 1000;
+var generate = function() {  
+  var session = {};
+  var id = (new Date()).getTime() + Math.random();
+  session = {
+    expires: (new Date()).getTime() + EXPIRES;
+  };
+  sessions[id] = session;  
+  return session;
+}
+// cookie口令校验及session生成
+function (req, res) {
+  const id = req.cookie["session_id"];
+
+  if(id) {
+    const session = sessions[id];
+    if(session.cookie.expire > (new Date()).getTime()) {//未超时
+      // 更新过期时间
+      session.cookie.expire = (new Date()).getTime() + EXPIRE_TIME;
+      // 设置session
+      res.session = session;
+    }else {// 超时
+      delete sessions[id];
+      res.session = session;
     }
-    // cookie口令校验及session生成
-    function (req, res) {
-      const id = req.cookie["session_id"];
-    
-      if(id) {
-        const session = sessions[id];
-        if(session.cookie.expire > (new Date()).getTime()) {//未超时
-          // 更新过期时间
-          session.cookie.expire = (new Date()).getTime() + EXPIRE_TIME;
-          // 设置session
-          res.session = session;
-        }else {// 超时
-          delete sessions[id];
-          res.session = session;
-        }
-      }else {
-        res.session = generate();
-      }
-      handle(req, res);
-    }
-    // 根据cookie获取用户状态并返回相应值
-    var handle = function (req, res) { 
-      if (!req.session.isVisit) {
-        res.session.isVisit = true; 
-        res.writeHead(200); res.end('欢迎第一次来到动物园');
-      } else {
-        res.writeHead(200); res.end('动物园再次欢迎你');
-      }  
-    };
-    ```
+  }else {
+    res.session = generate();
+  }
+  handle(req, res);
+}
+// 根据cookie获取用户状态并返回相应值
+var handle = function (req, res) { 
+  if (!req.session.isVisit) {
+    res.session.isVisit = true; 
+    res.writeHead(200); res.end('欢迎第一次来到动物园');
+  } else {
+    res.writeHead(200); res.end('动物园再次欢迎你');
+  }  
+};
+```
 - session与内存
     - 避免内存泄露，以及控制内存
     - 多进程之间的数据保存：统一的数据存储redis
