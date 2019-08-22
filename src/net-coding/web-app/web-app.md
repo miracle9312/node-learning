@@ -64,7 +64,7 @@ var parseCookie = function (cookie) {
 <img style="margin: auto;display: block;" src="../assets/session.png" width="500px" height="250px"/>
 - session的在node的实现
     - session最终的数据格式
-    ```json
+    ```jj
     {  
       "id1": {
         "expires": "xxxx",
