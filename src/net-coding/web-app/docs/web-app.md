@@ -77,7 +77,7 @@ var parseCookie = function (cookie) {
 - session的在node的实现
     - session最终的数据格式
     ```js
-    {  
+    var sessions = {  
       "id1": {
         "expires": "xxxx",
         "data": {}
