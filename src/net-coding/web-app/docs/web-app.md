@@ -74,9 +74,9 @@ var parseCookie = function (cookie) {
 - 什么是session:是在服务端保存的一个数据结构，用来跟踪用户的状态
 - 原理解析：如何用session保存用户登录状态
 <img style="margin: auto;display: block;" src="./assets/session.png" width="500px" height="250px"/>
-- session的在node的实现
-    - session最终的数据格式
+session的在node的实现
     ```js
+    // session最终的数据格式
     var sessions = {  
       "id1": {
         "expires": "xxxx",
@@ -86,11 +86,9 @@ var parseCookie = function (cookie) {
         "expires": "xxxx",
          "data": {}
       }
-    }
-    ```
-    - 生成sessionId
-    ```js
-    var sessions = {};
+    }  
+    
+    // 生成sessionId
     var key = 'session_id';
     var EXPIRES = 20 * 60 * 1000;
     var generate = function() {  
@@ -102,9 +100,7 @@ var parseCookie = function (cookie) {
       sessions[id] = session;  
       return session;
     }
-    ```
-    - cookie口令校验及session生成
-    ```js
+    // cookie口令校验及session生成
     function (req, res) {
       const id = req.cookie["session_id"];
     
@@ -124,9 +120,7 @@ var parseCookie = function (cookie) {
       }
       handle(req, res);
     }
-    ```
-    - 根据cookie获取用户状态并返回相应值
-    ```js
+    // 根据cookie获取用户状态并返回相应值
     var handle = function (req, res) { 
       if (!req.session.isVisit) {
         res.session.isVisit = true; 
