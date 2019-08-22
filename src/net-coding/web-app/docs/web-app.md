@@ -6,6 +6,18 @@ http.createServer(function(req, res) {
 }).listen(1337, '127.0.0.1')
 ```
 
+## 大纲
+- 路径解析
+- 查询字符串
+- cookie
+- session
+- 文件缓存
+- 网络攻击与防范
+- 路由映射
+- 中间件
+- 模板渲染
+- bigpipe
+
 ## 浏览器报文
 <img style="margin: auto;display: block;" src="./assets/http.jpg" width="500px" height="250px"/>
 
