@@ -81,8 +81,8 @@ module.exports = function(req, res) {
     res.setHeader('Content-Type', 'text/html');
     res.writeHead(200);
     var html = cache[key](data, escape);
-    res.end(html);
-    /*res.end();*/
+    res.write(html);
+    // res.end();
   };
 
   return{

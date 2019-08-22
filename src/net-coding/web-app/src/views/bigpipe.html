@@ -7,22 +7,19 @@
 <body>
 <h2>hello miracle</h2>
 <div id="view"></div>
-<script src="/views/js/bigpipe.js" type="application/javascript"></script>
-<script src="/views/js/lib/jquery.js" type="application/javascript"></script>
-<script src = "/views/js/tools/juicer.js" type="application/javascript"></script>
+<script src="/assets/bigpipe.js" type="application/javascript"></script>
+<script src="/assets/jquery.js" type="application/javascript"></script>
+<script src = "/assets/juicer.js" type="application/javascript"></script>
 <script id="view_tpl" type="text/template">
     <div>
         <h2>${name}</h2>
         <h2>${appearance}</h2>
     </div>
 </script>
-<!--<script>
-   var rootPath = "http://172.28.211.122/"
-</script>-->
 <script>
     var bigpipe = new BigPipe();
     bigpipe.ready("data", function(data) {
-      $("view").html(juicer($("view_tpl"), data))
+        $("#view").html(juicer("<div><h2>${name}</h2><h2>${appearance}</h2></div>", data))
     });
 </script>
 </body>

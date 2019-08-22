@@ -15,5 +15,3 @@ BigPipe.prototype.set = function(key, data) {
     callbacks[i].call(this, data);
   }
 };
-
-module.exports = BigPipe;
