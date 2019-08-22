@@ -7,7 +7,7 @@ http.createServer(function(req, res) {
 ```
 
 ## 浏览器报文
-<img style="margin: auto;display: block;" src="../assets/http.jpg" width="500px" height="250px"/>
+<img style="margin: auto;display: block;" src="./assets/http.jpg" width="500px" height="250px"/>
 
 ## 请求方法判断
 restful类的web服务，请求方法决定资源的操作行为，PUT->新建，POST->更新，GET->查看，DELETE->删除
@@ -61,7 +61,7 @@ var parseCookie = function (cookie) {
 - 为什么需要session:cookie是可以前端进行访问和改写的，需要将重要的数据放在服务端进行保存，cookie只保存索引，通过索引从服务端获取数据
 - 什么是session:是在服务端保存的一个数据结构，用来跟踪用户的状态
 - 原理解析：如何用session保存用户登录状态
-<img style="margin: auto;display: block;" src="../assets/session.png" width="500px" height="250px"/>
+<img style="margin: auto;display: block;" src="./assets/session.png" width="500px" height="250px"/>
 - session的在node的实现
     - session最终的数据格式
     ```jj
